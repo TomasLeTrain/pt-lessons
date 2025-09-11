@@ -1,20 +1,31 @@
 #import "@preview/slydst:0.1.4": *
 
+#let title_color = rgb("e93920")
+
+// default colors
 #let bg_color = rgb("1b1817")
 #let fg_color = rgb("f0f0f0")
-#let title_color = rgb("e93920")
+
 #let dark_fg = rgb("676767")
 
-#set page(fill: bg_color)
-// #set text(fill: fg_color, font: "DejaVu Sans", 8.1pt)
+// contrast colors
+#let contrast_bg_color = rgb("303030")
+
+// themes
+#let normal_theme = "../themes/brogrammer.tmTheme"
+#let contrast_theme = "../themes/halcyon_contrast.tmTheme"
+
+// used to compile the slides for when presenting, since the projector is not very good
+// #let contrast = true
+#let contrast = false
+
+#set raw(theme: if (contrast) {contrast_theme} else {normal_theme})
+
+#set page(fill: if(contrast) {contrast_bg_color} else {bg_color})
 #set text(fill: fg_color)
 
-#set raw(theme: "../themes/brogrammer.tmTheme")
-
 // set size of code
-// #show raw: set text(size: 8pt, font:"FiraCode Nerd Font Mono")
-#show raw: set text(size: 8pt)
-
+#show raw: set text(size: 9pt)
 
 #let codeBlock(other_content,body) = layout(size => {
   let default-body-size = measure(body)
@@ -61,7 +72,7 @@ Also open the compiler to write code:
 
 // = Casting
 == casting
-We can use variables with others of the same type.
+We can use variables with other variables of the same type.
 This means that, for example, we cannot compare
 ```cpp int``` and ```cpp double``` directly. To do
 this, we need to use *casting*.
@@ -109,12 +120,12 @@ if(big_num < (int)1e9){
 = Vectors
 
 == Vectors - Concept
-// TODO: add visual / draw
+// visual drawn here
 #align(center)[
   #rect(
     width:4in,
     height:3in,
-    fill:white
+    fill:rgb("a0a0a0")
   )
 ]
 
@@ -122,12 +133,13 @@ if(big_num < (int)1e9){
 Initializing vectors can be done like the
 following:
 
-#codeBlock(0pt)[
+#codeBlock(21pt)[
   ```cpp
 // where T is a data type
 vector<T> my_list; // starts out empty - contains no elements)
-vector<T> my_list(n); // starts with n-elements - they are all considered empty
-vector<T> my_list(n,default_val); // starts with n-elements, all equal to default_val
+vector<T> my_list2(n); // starts with empty n elements
+vector<T> my_list3(n,default_val); // starts with n-elements,
+//all equal to default_val
 
 vector<int> num_list;
 vector<string> string_list;
@@ -148,7 +160,7 @@ vector<vector<int>> num_list_2d(20, vector<int>(40, -5) );
 
 
 == Vectors - Looping through
-#codeBlock(0pt)[
+#codeBlock(-13pt)[
 ```cpp
 vector<int> l = {1,2,3,4,5,6,7};
 
@@ -178,20 +190,22 @@ cout << endl;
 ]
 
 For 2d vectors similar syntax can be used: 
+#codeBlock(0pt)[
 ```cpp
-int n = 100;
-int m = 200;
+int rows = 100;
+int cols = 200;
 
-vector<vector<int>> dp(n, vector<int>(m, 0));
+vector<vector<int>> dp(rows, vector<int>(cols, 0));
 
 // this is for example how you can print a 2d list:
-for(int i = 0;i < n;i++){
-  for(int j = 0;j < n;j++){
-    cout << dp[i][j] << " ";
+for(int row = 0;row < rows;row++){
+  for(int col = 0;col < cols;col++){
+    cout << dp[row][col] << " ";
   }
   cout << endl;
 }
 ```
+]
 
 
 == Vectors - Methods
@@ -202,16 +216,13 @@ Vectors support lots of methods:
   rows:auto,
   stroke: dark_fg,
     [*method*], [*comment*],
-    [```cpp push_back(T value)```], [ add a value to
-  the list. ],
-    [```cpp size()```], [ Returns the number of
-    elements in the vector. ],
+    [```cpp push_back(T value)```], [ add a value to the end of the list. ],
+    [```cpp size()```], [ Returns the number of elements in the vector. ],
     // [```cpp clear()```], [ Clears all elements
     // from the list. ],
     [```cpp front()```], [ Returns the first element of the vector ],
     [```cpp back()```], [ Returns the last element of the vector ],
-    [```cpp erase(iterator)```], [ Erases value at
-    some index\* ],
+    [```cpp erase(iterator)```], [ Erases value at some index\* ],
     [```cpp empty()```], [ Returns true if empty,
     otherwise returns false.],
   )
@@ -222,7 +233,7 @@ Vectors support lots of methods:
 ```cpp
 vector<int> l = {10,20,30,50,20};
 l.push_back(-10);
-l.push_back(l.begin() + 2);
+l.erase(l.begin() + 2);
 cout << l.size() << endl;
 for(int x : l)
   cout << x << " ";
@@ -239,8 +250,8 @@ for(int x : l)
 = Programming Problems' structure / related topics
 
 == Reading in a list / lists
-A common pattern is reading in a list of numbers:
-#codeBlock(30pt)[
+// A common pattern is reading in a list of numbers:
+#codeBlock(-20pt)[
   ```cpp
 // --- first approach --- //
 int n;
@@ -324,15 +335,14 @@ align(left)[
   )
 ]
 
-== Templates
+== Code Templates
 Some code can often be annoying to type over
 and over, so we can make templates to make
 writing solutions easier
 
-== Template
-// #show raw: set text(5.7pt)
+== Code Template
 
-#codeBlock(0pt)[
+#codeBlock(-10pt)[
   ```cpp
 #include <bits/stdc++.h>
 using namespace std;
@@ -362,28 +372,20 @@ int main(){
   ```
 ]
 
-
-== planning stuff
-TODO:
-plan example code for each of the slides:
-- casting first slide: have code to show off casting
-- one / multiple test cases
-
-
-== things to know when presenting
-- first ask who have used lists, 2d lists, and
-vectors in specific
-
-- mention that my goals is to introduce topics, but
-  that they are responsible for actually practicing
-and researching what I cannot cover
-
-- functions
-
-- topics for next lesson:
-- pairs
-- sets
-- time complexity
+// == things to know when presenting
+// - first ask who have used lists, 2d lists, and
+// vectors in specific
+//
+// - mention that my goals is to introduce topics, but
+//   that they are responsible for actually practicing
+// and researching what I cannot cover
+//
+// - functions
+//
+// - topics for next lesson:
+// - pairs
+// - sets
+// - time complexity
 
 == Miscellaneous
 - Practice competition
