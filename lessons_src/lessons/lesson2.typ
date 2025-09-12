@@ -70,6 +70,12 @@ Also open the compiler to write code:
   https://ide.usaco.guide
 ]
 
+The pdf for lessons will also be available here:
+
+#text(15pt,fill:blue.darken(10%))[
+]
+
+
 // = Casting
 == casting
 We can use variables with other variables of the same type.
@@ -371,21 +377,6 @@ int main(){
 }
   ```
 ]
-
-// == things to know when presenting
-// - first ask who have used lists, 2d lists, and
-// vectors in specific
-//
-// - mention that my goals is to introduce topics, but
-//   that they are responsible for actually practicing
-// and researching what I cannot cover
-//
-// - functions
-//
-// - topics for next lesson:
-// - pairs
-// - sets
-// - time complexity
 
 == Miscellaneous
 - Practice competition
