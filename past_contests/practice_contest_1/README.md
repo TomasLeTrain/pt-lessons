@@ -1,7 +1,7 @@
 # Practice Contest 1 solutions
 All the solutions for the problems are available here
 
-## Problems in order of difficulty
+## Problems in order of difficulty (lowest to highest)
 Keep in mind these are a bit subjective:
 
 - Water Pressure
