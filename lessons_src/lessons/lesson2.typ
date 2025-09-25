@@ -1,55 +1,21 @@
 #import "@preview/slydst:0.1.4": *
+#import "../utils.typ" : *
 
-#let title_color = rgb("e93920")
+#show: applyTheme.with()
 
-// default colors
-#let bg_color = rgb("1b1817")
-#let fg_color = rgb("f0f0f0")
+#context [
+  #show: slides.with(
+    title: "Vectors, Casting, and Templates",
+    subtitle: "Lesson #2",
+    date: "09/11/2025",
+    authors: ("TCHS Programming Team"),
+    layout: "medium",
+    ratio: 4/3,
 
-#let dark_fg = rgb("676767")
+    title-color: getTheme().title_color
+  )
 
-// contrast colors
-#let contrast_bg_color = rgb("303030")
-
-// themes
-#let normal_theme = "../themes/brogrammer.tmTheme"
-#let contrast_theme = "../themes/halcyon_contrast.tmTheme"
-
-// used to compile the slides for when presenting, since the projector is not very good
-// #let contrast = true
-#let contrast = false
-
-#set raw(theme: if (contrast) {contrast_theme} else {normal_theme})
-
-#set page(fill: if(contrast) {contrast_bg_color} else {bg_color})
-#set text(fill: fg_color)
-
-// set size of code
-#show raw: set text(size: 9pt)
-
-#let codeBlock(other_content,body) = layout(size => {
-  let default-body-size = measure(body)
-  let h = size.height - other_content
-  let height-scaling-factor = (h / default-body-size.height);
-  let width-scaling-factor = (size.width /
-    default-body-size.width);
-  let scaling-factor = calc.min(height-scaling-factor,width-scaling-factor);
-
-  scale(x: scaling-factor * 100%, y:
-    scaling-factor * 100%, origin:
-    top+left,reflow:true, body)
-})
-
-#show: slides.with(
-  title: "Vectors, Casting, and Templates",
-  subtitle: "Lesson #2",
-  date: "09/11/2025",
-  authors: ("TCHS Programming Team"),
-  layout: "medium",
-  ratio: 4/3,
-
-  title-color: title_color
-)
+#setContrast(true)
 
 == Setup
 Create a codeforces account at
@@ -217,10 +183,10 @@ for(int row = 0;row < rows;row++){
 == Vectors - Methods
 Vectors support lots of methods:
 #align(center)[
-  #table(
+  #context table(
   columns:2,
   rows:auto,
-  stroke: dark_fg,
+  stroke: getTheme().dark_fg,
     [*method*], [*comment*],
     [```cpp push_back(T value)```], [ add a value to the end of the list. ],
     [```cpp size()```], [ Returns the number of elements in the vector. ],
@@ -233,6 +199,7 @@ Vectors support lots of methods:
     otherwise returns false.],
   )
 ]
+
 #grid(columns:2,
   column-gutter: 20pt,
 [
@@ -294,11 +261,11 @@ for(int i = 0;i < n;i++){
 Input for each test case is two numbers:
 // Input is two numbers:
 #align(center)[
-  #table(
+  #context table(
     inset:6pt,
     rows:2,
     columns: 2,
-    stroke: dark_fg,
+    stroke: getTheme().dark_fg,
     [*Single test case*],[*Multiple Test cases*],
     [
     ```rust
@@ -317,11 +284,11 @@ Input for each test case is two numbers:
 
 Input for each test case is a list:
 #align(center)[
-  #table(
+  #context table(
     // inset:6pt,
     rows:2,
     columns: 2,
-    stroke: dark_fg,
+    stroke: getTheme().dark_fg,
     [*Single test case*],[*Multiple Test cases*],
 align(left)[
 ```rust
@@ -388,3 +355,5 @@ int main(){
 - next meeting
   - sets / hash maps
   - functions / recursion
+
+]
